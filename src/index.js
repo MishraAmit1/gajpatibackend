@@ -49,7 +49,11 @@ app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+const allowedOrigins = [
+  "https://gajpatiadminfrontend.onrender.com",
+  "http://localhost:5173",
+  "http://localhost:5174",
+];
 
 app.use(
   cors({
