@@ -21,7 +21,6 @@ router.get("/stats", getProductStats);
 router.get("/search", fetchProductsWithSearch);
 router.get("/by-nature", fetchProductsWithSearch);
 router.get("/:id", getProductById);
-
 // Private routes
 router.post(
   "/create",

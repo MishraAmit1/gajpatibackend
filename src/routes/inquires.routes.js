@@ -15,7 +15,7 @@ router.get("/", getAllInquiries);
 router.get("/:id", getInquiryById);
 
 // Private routes
-router.post("/create", verifyJWT, createInquiry);
+router.post("/create", createInquiry);
 router.put("/:id", verifyJWT, updateInquiry);
 router.delete("/:id", verifyJWT, deleteInquiry);
 

@@ -81,13 +81,14 @@ import productRouter from "./routes/product.routes.js";
 import blogRouter from "./routes/blog.routes.js";
 import inquiresRouter from "./routes/inquires.routes.js";
 import plantStatsRouter from "./routes/plantStats.routes.js";
+import subscriberRouter from "./routes/subscriber.route.js";
+import quotesRouter from "./routes/quote.routes.js";
 
 app.get("/", async (req, res, next) => {
   res.json({
     message: "Running",
   });
 });
-
 // routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/plants", plantRouter);
@@ -96,6 +97,8 @@ app.use("/api/v1/products", productRouter);
 app.use("/api/v1/blogs", blogRouter);
 app.use("/api/v1/inquires", inquiresRouter);
 app.use("/api/v1", plantStatsRouter);
+app.use("/api/v1", subscriberRouter);
+app.use("/api/v1/quotes", quotesRouter);
 
 // 404 handler
 app.use((req, res) => {

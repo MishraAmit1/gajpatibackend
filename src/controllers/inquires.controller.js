@@ -13,9 +13,9 @@ export const createInquiry = asyncHandler(async (req, res) => {
     companyName,
     city,
     purpose,
-    source,
     consent,
-    productId,
+    selectedProducts,
+    description,
     status,
     replies,
   } = req.body;
@@ -27,10 +27,15 @@ export const createInquiry = asyncHandler(async (req, res) => {
     !city ||
     !purpose ||
     consent === undefined ||
-    !productId ||
+    !selectedProducts ||
+    !Array.isArray(selectedProducts) ||
+    selectedProducts.length === 0 ||
     !status
   ) {
-    throw throwApiError(400, "All required fields must be provided");
+    throw throwApiError(
+      400,
+      "All required fields must be provided, and selectedProducts must be a non-empty array"
+    );
   }
   try {
     const inquiry = await Inquiry.create({
@@ -40,9 +45,9 @@ export const createInquiry = asyncHandler(async (req, res) => {
       companyName,
       city,
       purpose,
-      source,
       consent,
-      productId,
+      selectedProducts,
+      description,
       status,
       replies,
     });
@@ -57,9 +62,7 @@ export const createInquiry = asyncHandler(async (req, res) => {
 
 export const getAllInquiries = asyncHandler(async (req, res) => {
   try {
-    const inquiries = await Inquiry.find()
-      .sort({ createdAt: -1 })
-      .populate("productId", "name");
+    const inquiries = await Inquiry.find().sort({ createdAt: -1 });
     return sendResponse(res, 200, inquiries, "Inquiries fetched successfully");
   } catch (error) {
     throw throwApiError(500, "Something went wrong while retrieving inquiries");
@@ -72,7 +75,7 @@ export const getInquiryById = asyncHandler(async (req, res) => {
     throw throwApiError(400, "Invalid Inquiry ID format");
   }
   try {
-    const inquiry = await Inquiry.findById(id).populate("productId", "name");
+    const inquiry = await Inquiry.findById(id);
     if (!inquiry) {
       throw throwApiError(404, "Inquiry not found");
     }

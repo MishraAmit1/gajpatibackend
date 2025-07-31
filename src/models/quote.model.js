@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const inquirySchema = new mongoose.Schema(
+const quoteSchema = new mongoose.Schema(
   {
     customerName: {
       type: String,
@@ -28,32 +28,12 @@ const inquirySchema = new mongoose.Schema(
       ],
       trim: true,
     },
-    companyName: {
-      type: String,
-      required: [true, "Company/Firm Name is required"],
-      minlength: [3, "Company Name must be at least 3 characters"],
-      maxlength: [100, "Company Name cannot exceed 100 characters"],
-      trim: true,
-    },
     city: {
       type: String,
       required: [true, "City/Site Location is required"],
       minlength: [3, "City must be at least 3 characters"],
       maxlength: [50, "City cannot exceed 50 characters"],
       trim: true,
-    },
-    purpose: {
-      type: String,
-      required: [true, "Purpose of Request is required"],
-      enum: {
-        values: ["Tender", "Site Use", "Resale", "Other"],
-        message: "Purpose must be one of: Tender, Site Use, Resale, Other",
-      },
-    },
-    consent: {
-      type: Boolean,
-      required: [true, "Consent is required for data processing"],
-      default: false,
     },
     selectedProducts: {
       type: [String],
@@ -68,12 +48,6 @@ const inquirySchema = new mongoose.Schema(
         },
         message: "At least one product must be selected",
       },
-    },
-    description: {
-      type: String,
-      minlength: [3, "Description must be at least 3 characters"],
-      maxlength: [1000, "Description cannot exceed 1000 characters"],
-      trim: true,
     },
     status: {
       type: String,
@@ -104,4 +78,4 @@ const inquirySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Inquiry = mongoose.model("Inquiry", inquirySchema);
+export const Quote = mongoose.model("Quote", quoteSchema);
