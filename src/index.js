@@ -17,7 +17,7 @@ const requiredEnvVars = [
   "SUPABASE_KEY",
   "SUPABASE_SERVICE_KEY",
 ];
-console.log(process.env.SENDGRID_API_KEY);
+console.log("Environment:", process.env.NODE_ENV);
 
 requiredEnvVars.forEach((envVariable) => {
   if (!process.env[envVariable]) {
@@ -35,13 +35,17 @@ const PORT = process.env.PORT || 3000;
 // Global rate limiter for all routes
 const globalRateLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 1000, // Max 1000 requests per IP in the window
+  max: process.env.NODE_ENV === "production" ? 5000 : 1000, // Higher limit for production
   message: {
     success: false,
     message: "Too many requests from this IP, please try again after an hour.",
   },
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => {
+    // Skip rate limiting for health checks
+    return req.url === "/" || req.url === "/health";
+  },
 });
 
 // MIDDLEWARES Start

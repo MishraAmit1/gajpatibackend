@@ -19,7 +19,6 @@ const router = express.Router();
 
 // general rate limiting
 router.use(generalRateLimiter);
-
 router.route("/register").post(
   upload.fields([
     {

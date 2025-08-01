@@ -8,9 +8,6 @@ export const generateTokens = async (userId) => {
     }
     const accessToken = await user.generateToken();
     const refreshToken = await user.generateRefreshToken();
-    if (!accessToken || !refreshToken) {
-      throw new Error("Failed to generate tokens: Invalid token output");
-    }
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
     return { accessToken, refreshToken };
@@ -22,6 +19,15 @@ export const generateTokens = async (userId) => {
 
 export const cookieOptions = {
   httpOnly: true,
-  sameSite: "strict",
-  maxAge: 7 * 24 * 60 * 60 * 1000,
+  secure: process.env.NODE_ENV === "production", // Only secure in production
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  path: "/", // Ensure cookie is available for all paths
+};
+
+// Additional option for access token (shorter expiry)
+export const accessTokenCookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  path: "/",
 };

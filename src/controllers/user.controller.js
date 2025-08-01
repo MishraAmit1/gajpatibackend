@@ -3,7 +3,11 @@ import { throwApiError } from "../utils/apiError.js";
 import { sendResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
-import { cookieOptions, generateTokens } from "../utils/generateTokens.js";
+import {
+  accessTokenCookieOptions,
+  cookieOptions,
+  generateTokens,
+} from "../utils/generateTokens.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import {
   validateResetPasswordInput,
@@ -123,7 +127,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 
     return sendResponse(
       res
-        .cookie("accessToken", accessToken, cookieOptions)
+        .cookie("accessToken", accessToken, accessTokenCookieOptions)
         .cookie("refreshToken", refreshToken, cookieOptions),
       200,
       { user: loginUser },
