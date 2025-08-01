@@ -124,10 +124,11 @@ export const loginUser = asyncHandler(async (req, res) => {
     delete loginUser.refreshToken;
 
     console.log(`Successful login: ${username || email} `);
-
+    console.log("Setting cookies - accessToken:", accessToken);
+    console.log("Setting cookies - refreshToken:", refreshToken);
     return sendResponse(
       res
-        .cookie("accessToken", accessToken, accessTokenCookieOptions)
+        .cookie("accessToken", accessToken, cookieOptions)
         .cookie("refreshToken", refreshToken, cookieOptions),
       200,
       { user: loginUser },
