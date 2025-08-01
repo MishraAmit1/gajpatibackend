@@ -23,7 +23,6 @@ export const cookieOptions = {
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
   path: "/", // Ensure cookie is available for all paths
-  domain: process.env.NODE_ENV === "production" ? ".onrender.com" : undefined,
 };
 
 // Additional option for access token (shorter expiry)
