@@ -4,10 +4,10 @@
   "description": "a website for gajapti industries by flauraa",
   "type": "module",
   "main": "index.js",
-  "scripts": {
-    "start": "node -r dotenv/config src/index.js",
-    "dev": "nodemon -r dotenv/config src/index.js"
-  },
+ "scripts": {
+  "start": "node src/index.js",
+  "dev": "nodemon src/index.js"
+},
   "author": "Flauraa",
   "license": "ISC",
   "dependencies": {
@@ -29,7 +29,6 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "dotenv": "^17.2.1",
     "nodemon": "^3.1.10"
   }
 }
