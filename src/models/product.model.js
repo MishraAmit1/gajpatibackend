@@ -5,21 +5,19 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Product Name is required"],
       minlength: [3, "Product Name must be at least 3 characters"],
-      maxlength: [50, "Product Name cannot exceed 50 characters"],
+      maxlength: [60, "Product Name cannot exceed 60 characters"],
       unique: true,
       trim: true,
       index: true,
-      match: [
-        /^[a-zA-Z0-9_ ]+$/,
-        "Product Name can only contain letters, numbers, underscores, and spaces",
-      ],
     },
     abbreviation: {
       type: String,
       required: [true, "Abbreviation is required"],
-      minlength: [2, "Abbreviation must be at least 2 characters"],
-      maxlength: [10, "Abbreviation cannot exceed 10 characters"],
-      uppercase: true,
+      set: function (value) {
+        // This will preserve the original value as-is
+        return value;
+      },
+      index: { collation: { locale: "en", strength: 2 } }, // Case-insensitive index
       trim: true,
     },
     slug: {

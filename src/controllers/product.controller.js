@@ -43,7 +43,6 @@ export const createProduct = asyncHandler(async (req, res) => {
   ) {
     throw throwApiError(400, "All required fields must be provided");
   }
-
   // Validate natureId and plantId
   if (
     !mongoose.isValidObjectId(natureId) ||
@@ -182,10 +181,9 @@ export const createProduct = asyncHandler(async (req, res) => {
     if (!validStatuses.includes(status)) {
       throw throwApiError(400, "Invalid status value");
     }
-
     const product = await Product.create({
       name,
-      abbreviation: abbreviation.toUpperCase(),
+      abbreviation,
       slug: productSlug,
       natureId,
       plantId,
@@ -214,7 +212,6 @@ export const createProduct = asyncHandler(async (req, res) => {
       .populate("natureId", "name slug")
       .populate("plantId", "name certifications")
       .select("-__v -createdAt -updatedAt");
-
     return sendResponse(
       res,
       201,
@@ -435,7 +432,6 @@ export const updateProduct = asyncHandler(async (req, res) => {
     applications,
     status,
   } = req.body;
-
   // Validate ID
   if (!id || !mongoose.isValidObjectId(id)) {
     throw throwApiError(400, "Invalid Product ID format");
@@ -655,15 +651,12 @@ export const updateProduct = asyncHandler(async (req, res) => {
   if (!validStatuses.includes(statusValue)) {
     throw throwApiError(400, "Invalid status value");
   }
-
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       id,
       {
         name: name || product.name,
-        abbreviation: abbreviation
-          ? abbreviation.toUpperCase()
-          : product.abbreviation,
+        abbreviation: abbreviation || product.abbreviation,
         slug: productSlug,
         natureId: natureId || product.natureId,
         plantId: plantId || product.plantId,
