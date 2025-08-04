@@ -108,7 +108,7 @@ export const getPlantsWithStats = asyncHandler(async (req, res) => {
           createdAt: 1,
         },
       },
-      { $sort: { createdAt: -1 } },
+      { $sort: { createdAt: 1 } },
     ]);
 
     return sendResponse(

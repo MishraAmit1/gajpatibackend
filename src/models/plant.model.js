@@ -8,7 +8,6 @@ const plantSchema = new mongoose.Schema(
       minlength: [3, "Plant Name must be at least 3 characters"],
       maxlength: [30, "Plant Name cannot exceed 30 characters"],
       unique: true,
-      lowercase: true,
       trim: true,
       index: true,
       match: [
