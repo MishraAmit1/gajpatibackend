@@ -1,7 +1,7 @@
 {
   "name": "gajpati-backend",
   "version": "1.0.0",
-  "description": "a website for gajapti industries by flauraa",
+  "description": "a website for gajpati industries by flauraa",
   "type": "module",
   "main": "index.js",
  "scripts": {

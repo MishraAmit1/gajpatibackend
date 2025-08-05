@@ -112,5 +112,5 @@ const natureSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
+natureSchema.index({ plantId: 1, isActive: 1 });
 export const Nature = mongoose.model("Nature", natureSchema);

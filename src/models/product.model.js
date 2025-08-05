@@ -186,5 +186,6 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
+productSchema.index({ natureId: 1, isActive: 1 });
+productSchema.index({ plantId: 1, isActive: 1 });
 export const Product = mongoose.model("Product", productSchema);
